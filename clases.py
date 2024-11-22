@@ -1,6 +1,5 @@
 import random
 
-# Clase Detector
 class Detector:
     def __init__(self):
         pass
@@ -37,7 +36,37 @@ class Detector:
                 return True
         return False
     
-    class Virus(Mutador):
+    
+class Mutador:
+    def __init__(self, base_nitrogenada, tipo_mutacion):
+        self.base_nitrogenada = base_nitrogenada
+        self.tipo_mutacion = tipo_mutacion
+
+    def crear_mutante(self, base_nitrogenada, posicion_inicial, orientacion_de_mutacion):
+        pass 
+
+
+
+class Radiacion(Mutador):
+    def __init__(self, base_nitrogenada, intensidad):
+        super().__init__(base_nitrogenada, "Radiacion")
+        self.intensidad = intensidad
+
+    def crear_mutante(self, base_nitrogenada, posicion_inicial, orientacion_de_mutacion):
+        try:
+            matriz = [["A", "T", "C", "G"] for _ in range(5)] 
+            if orientacion_de_mutacion == "H":
+                for j in range(4):
+                    matriz[posicion_inicial[0]][posicion_inicial[1] + j] = base_nitrogenada
+            elif orientacion_de_mutacion == "V":
+                for i in range(4):
+                    matriz[posicion_inicial[0] + i][posicion_inicial[1]] = base_nitrogenada
+            return matriz
+        except Exception as e:
+            print(f"Error: {e}")
+            return None
+    
+class Virus(Mutador):
     def __init__(self, base_nitrogenada, energia_viral=100, tipo_virus='diagonal'):
         """
         Constructor de la clase Virus
